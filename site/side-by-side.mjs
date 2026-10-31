@@ -86,10 +86,12 @@ const recordOf = (pane) => window.benchResults.find((r) => r.tool === pane.tool)
 // The form each pane reads, with the ahead-of-time conversion time from its record.
 async function describeForm(pane, modelId) {
   if (pane.form === "ifc") return "the IFC itself";
+  if (pane.form === "ifc-cache") return "the IFC itself, through the viewer's browser cache (IndexedDB)"; // local (rebench, 26/10)
   try {
-    const r = await fetch(`${fileUrl(modelId, pane.form)}.json`);
-    if (!r.ok) return "(no conversion record)";
-    const rec = await r.json();
+    // An assembly sums its parts' records: total size, and the conversion time of all of them.
+    const recs = await Promise.all(partsOf(modelId).map((p) => fetch(`${fileUrl(p, pane.form)}.json`).then((r) => (r.ok ? r.json() : null))));
+    if (recs.some((x) => !x)) return "(no conversion record)";
+    const rec = recs.length === 1 ? recs[0] : { ...recs[0], seconds: recs.reduce((t, x) => t + x.seconds, 0), bytes: recs.reduce((t, x) => t + x.bytes, 0), sha256: undefined };
     recordOf(pane).conversion = { tool: rec.tool, version: rec.version, seconds: rec.seconds, bytes: rec.bytes, sha256: rec.sha256 };
     return `by ${rec.tool}, converted ahead in ${seconds(rec.seconds)} (${kb(rec.bytes)})`;
   } catch {
@@ -104,11 +106,15 @@ window.addEventListener("message", (e) => {
   if (m.type === "ready") {
     pane.ready = true;
     pane.version = m.version ?? "";
+    pane.multi = !!m.multi; // local (#796): it can load an assembly's files at once
     recordOf(pane).version = pane.version;
     pane.fields.version.textContent = pane.version;
     pane.fields.state.textContent = "ready";
     maybeEnable();
-  } else if (m.type === "state") {
+  } else if (m.type === "state") applyState(pane, m);
+});
+
+function applyState(pane, m) {
     pane.states.push({ state: m.state, t: m.t, bytes: m.bytes, message: m.message, phases: m.phases });
     pane.el.dataset.state = m.state;
     pane.fields.state.textContent = m.state;
@@ -117,8 +123,7 @@ window.addEventListener("message", (e) => {
     pane.fields.message.textContent = m.message ?? "";
     if (m.phases) pane.fields.state.title = JSON.stringify(m.phases);
     copyButton.disabled = false;
-  }
-});
+}
 
 function maybeEnable() {
   loadButton.disabled = !(select.value && panes.some((p) => p.ready));
@@ -144,7 +149,12 @@ async function load() {
   }
   // One instant for every pane: the message is posted in one synchronous loop.
   for (const pane of panes) {
-    if (pane.ready) pane.iframe.contentWindow.postMessage({ type: "load", model: id, url: new URL(fileUrl(id, pane.form), location.href).href }, "*");
+    if (pane.ready) {
+      const urls = fileUrls(id, pane.form);
+      // A pane built before multi-file loads (or one that cannot) would show only the first part.
+      if (urls.length > 1 && !pane.multi) applyState(pane, { state: "failed", t: 0, message: `loads one file at a time; ${id} has ${urls.length}` });
+      else pane.iframe.contentWindow.postMessage({ type: "load", model: id, url: urls[0], urls, offsets: offsetsOf(id), form: pane.form }, "*"); // local (rebench, 26/10) : + form
+    }
   }
 }
 
@@ -185,7 +195,14 @@ function baseFor(id) {
   if (manifest.models.find((m) => m.id === id)?.bundled) return "../models/bundled";
   return manifest.release?.baseUrl;
 }
-function fileUrl(id, form) { return `${baseFor(id)}/${id}.${form}`; }
+// local (rebench, 26/10) : une forme « <x>-cache » lit le fichier <x> (ifc-cache : le .ifc, mis en cache par le viewer).
+function fileUrl(id, form) { return `${baseFor(id)}/${id}.${form.replace(/-cache$/, "")}`; }
+// local (#796): an assembly (manifest "parts") is its parts' files, in order; any other model, itself.
+const partSpecs = (id) => (manifest.models.find((m) => m.id === id)?.parts ?? [id]).map((p) => (typeof p === "string" ? { id: p } : p));
+const partsOf = (id) => partSpecs(id).map((p) => p.id);
+// local : décalages des pièces d'une matrice d'assemblage ({ id, offset }), undefined sans aucun.
+const offsetsOf = (id) => { const s = partSpecs(id); return s.some((p) => p.offset) ? s.map((p) => p.offset ?? [0, 0, 0]) : undefined; };
+const fileUrls = (id, form) => partsOf(id).map((p) => new URL(fileUrl(p, form), location.href).href);
 function describeSource() {
   const base = baseFor(select.value);
   document.getElementById("note").textContent =

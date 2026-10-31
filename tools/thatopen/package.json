@@ -5,8 +5,9 @@
   "type": "module",
   "description": "That Open Engine pane for BIM Open Bench: exact versions, built by node scripts/tools.mjs thatopen",
   "dependencies": {
-    "@thatopen/components": "3.4.9",
-    "@thatopen/fragments": "3.4.8",
+    "@thatopen/components": "3.6.0",
+    "@thatopen/components-front": "3.6.0",
+    "@thatopen/fragments": "3.6.0",
     "camera-controls": "3.1.2",
     "three": "0.185.0",
     "web-ifc": "0.0.77"

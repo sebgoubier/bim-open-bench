@@ -1,0 +1,17 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>That Open Engine pane (rebench, WebGPU, postproduction coupée)</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #111; }
+  body { display: flex; flex-direction: column; }
+  #status { font: 12px monospace; padding: 2px 6px; background: #222; color: #eee; white-space: pre-wrap; }
+  /* local: overflow hidden, else at devicePixelRatio 1.5 the canvas rounds 1 px past its box, scrollbars appear, the renderer resizes, they go, and so on (blinking). */
+  #viewer { flex: 1; min-height: 0; position: relative; overflow: hidden; }
+</style>
+<div id="status"></div>
+<div id="viewer"></div>
+<!-- local (rebench) : même pane.mjs que tools/thatopen, bundle WebGPU (tools/thatopen/dist-webgpu, vite.webgpu.config.mjs) :
+     PostproductionRenderer en { mode: "webgpu" }, postproduction coupée. Échec du chargement (« not WebGPU ») si three
+     n'est pas un WebGPURenderer sur un backend WebGPU. -->
+<script>window.__TOC_MODE = "webgpu"; window.__TOC_POST = "off";</script>
+<script type="module" src="../thatopen/dist-webgpu/pane.js"></script>

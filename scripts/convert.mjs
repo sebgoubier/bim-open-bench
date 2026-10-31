@@ -40,9 +40,10 @@ for (const model of selectModels(manifest, process.argv)) {
     rmSync(output, { force: true });
     console.log(`${label}: converting`);
     const started = process.hrtime.bigint();
-    const { tool, version, build } = await converter.convert(manifest, input, output);
+    // local: a converter whose output is an index of several files returns their total as `bytes`.
+    const { tool, version, build, bytes } = await converter.convert(manifest, input, output);
     const seconds = Number(process.hrtime.bigint() - started) / 1e9;
-    const entry = { tool, version, build, seconds: Math.round(seconds * 100) / 100, bytes: statSync(output).size, sha256: await sha256File(output) };
+    const entry = { tool, version, build, seconds: Math.round(seconds * 100) / 100, bytes: bytes ?? statSync(output).size, sha256: await sha256File(output) };
     writeFileSync(record, JSON.stringify(entry, null, 2) + "\n");
     console.log(`${label}: ${entry.seconds} s, ${entry.bytes} bytes`);
   }

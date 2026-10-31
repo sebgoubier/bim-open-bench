@@ -53,6 +53,10 @@ The question in the repository README: does IFClite's renderer fall back to WebG
 
 The server sends `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Embedder-Policy: require-corp`, and `crossOriginIsolated` is true in the page. IFClite's geometry code uses a `SharedArrayBuffer` when it exists (`geometry-parallel.js` checks `typeof SharedArrayBuffer`). Whether it works without the headers was not tested here, so "needed" is not claimed.
 
+## Camera path (local)
+
+`pane.mjs` installs the adapter for `tools/camera-path.mjs` (`--path` in `scripts/view.mjs`). `box()` is `renderer.getModelBounds()`, the same bounds `fitToView()` frames (Y-up world, model translation applied); `up()` is `renderer.getCamera().getUp()`. `set(eye, target)` calls `camera.stopInertia()`, `camera.setPosition(...)` and `camera.setTarget(...)`, which apply at once (no animation), then `renderer.requestRender()` so the pane's frame loop calls `render()` on the next frame. Checked on 2026-10-19: `renderer._renderCallCount` grew by one per path frame (17 540 renders for 17 538 frames on the Duplex, no skipped frame).
+
 ## Checking it
 
 `node scripts/view.mjs --tool ifclite --model duplex` opens the pane in headless Chrome on the machine's GPU (`--software` for SwiftShader), waits for `done` or `failed`, prints the times, and writes a screenshot to `results/view/scratch/` (git-ignored); `tools/README.md` describes the runner and `results/view/README.md` holds the latest numbers for every pane.
@@ -60,3 +64,44 @@ The server sends `Cross-Origin-Opener-Policy: same-origin` and `Cross-Origin-Emb
 Before the frame loop was added the pane reported `done` over an empty canvas, which is why `done` waits for a drawn frame.
 
 Logo: `logo.png` is https://github.com/LTplus-AG/ifc-lite/blob/main/apps/viewer/public/favicon-96x96-cropped.png (repository MPL-2.0; the mark belongs to LTplus AG), used to identify the viewer in the benchmark. The full `docs/assets/logo.png` there is 1.3 MB, too large for a pane.
+
+## local (rebench, 26/10) : propriétés
+
+Le pane charge aussi le modèle de données, comme le viewer ifc-lite par défaut (`apps/viewer/src/hooks/useIfcLoader.ts`) :
+`@ifc-lite/parser` 9.5.1 (`WorkerParser` sur la même SharedArrayBuffer que la géométrie, repli `IfcParser.parseColumnar`),
+lancé en parallèle de `processAdaptive`, avec le passage de l'index d'entités de la pré-passe (`onEntityIndex`).
+`done` reste « toute la géométrie affichée » ; `window.__benchExtra.propsReadyMs` = fin du parse (index, relations,
+table élément → jeux de propriétés ; les valeurs se décodent au clic). `@ifc-lite/data` est passé de 6.2.0 à 6.3.0
+(dépendance commune). Sauvegarde de l'état d'avant : `tools/ifclite.bak-rebench-props/`.
+
+## local (rebench, 26/10) : cache du viewer comme « format converti » (forme `ifc-cache`)
+
+Le viewer officiel d'ifc-lite garde dans IndexedDB la géométrie et le modèle de données déjà calculés ; c'est, pour
+ifc-lite, l'équivalent d'un format converti (nos .sgpu, le .xkt, le .frag). La forme `ifc-cache` (`site/panes.json`)
+lit le même `.ifc` et passe par ce cache ; la forme `ifc` reste à froid, sans cache, inchangée.
+
+- `ifc-cache.mjs` recopie la colle de leur application (le paquet ne fournit que le format) : seuils, palier, clé,
+  IndexedDB, lecture, écriture ; chaque bloc cite son fichier et ses lignes dans le clone (`C:/dev/ifc-lite`, 06/09).
+  Paquet `@ifc-lite/cache` **3.7.0** épinglé (la version publiée avec geometry 7.7.0 / data 6.3.0 ; 3.7.2 exige
+  geometry ^7.8.1) ; `FORMAT_VERSION` 23. La chaîne de versions du pane inclut maintenant `cache 3.7.0`.
+- Paliers sur le fichier PRINCIPAL : rien < 10 Mio ; « source » 10-150 Mio (géométrie + tables + source, propriétés
+  servies par la source en cache) ; « mesh-only » 150-400 Mio (sans la source : le fichier fourni est relu, et un
+  SHA-256 le revalide en tâche de fond) ; rien > 400 Mio. Clé `ifc-<taille>-<empreinte>-v23` : le pane ne passe aucune
+  option de tessellation, donc ni `-ml`, ni `-sc`, ni `-t<palier>`.
+- Servi : modèle de données réhydraté d'abord (index d'entités, cartes à la demande, hiérarchie spatiale), puis la
+  géométrie morceau par morceau ; le WASM de géométrie n'est pas initialisé. Défaut : chemin WASM de la forme `ifc`,
+  puis écriture en tâche de fond quand la géométrie est finie et le modèle de données prêt ; `__benchExtra.complete`
+  attend l'écriture.
+- Fédération : seul le 1er fichier d'un assemblage (le modèle principal) passe par le cache ; les suivants repassent par
+  le WASM, sans cache, avec le RTC du principal (`loadCached` dans `pane.mjs`).
+- `__benchExtra.cache[k]` : `{ tier, hit, reason, key, lookupMs, hydrateMs, geometryMs, cacheBytes, write, cacheWrittenMs,
+  revalidate, keptTriangles, droppedByCache… }` par fichier ; géométrie (`done`) et propriétés (`propsReadyMs`) restent
+  séparées comme pour la forme `ifc`.
+- `scripts/view.mjs` amorce toute forme `-cache` : ouverture d'amorçage non comptée dans un Chrome neuf, profil gardé
+  et vidé de ses caches HTTP, code et shaders (IndexedDB seule conservée), puis les passes mesurées dans ce profil.
+
+Écarts connus avec leur viewer : la géométrie du pane est celle des réglages par défaut du paquet (pas le mode « fast »
+de leur viewer, ni ses couleurs `styles`, ni ses éclats instanciés : déjà vrai pour la forme `ifc`) ; leur validation
+du cache écarte les meshes SANS normales (182 meshes, 8 % des triangles sur Schependomlaan ; 330, 5 % sur Sixty5 :
+fenêtres, portes, murs…), une ouverture servie dessine donc moins que l'ouverture à froid, comme le ferait leur viewer
+avec ces versions. Sauvegarde de l'état d'avant : `tools/ifclite.bak-rebench-cache/`.

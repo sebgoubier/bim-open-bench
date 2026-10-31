@@ -8,8 +8,9 @@ Pinned exactly in `package.json`, with `package-lock.json`; read by `pane.mjs` f
 
 | Package | Version |
 |---|---|
-| `@thatopen/components` | 3.4.9 |
-| `@thatopen/fragments` | 3.4.8 |
+| `@thatopen/components` | 3.6.0 |
+| `@thatopen/components-front` | 3.6.0 |
+| `@thatopen/fragments` | 3.6.0 |
 | `web-ifc` | 0.0.77 |
 | `three` | 0.185.0 |
 | `camera-controls` | 3.1.2 |
@@ -27,6 +28,17 @@ Pinned exactly in `package.json`, with `package-lock.json`; read by `pane.mjs` f
 
 - The Fragments worker and web-ifc's wasm come from `dist/`, not a CDN (above).
 - web-ifc is initialised once, single-threaded, before the first load. web-ifc chooses its multi-threaded build whenever the page is cross-origin isolated, which the server's headers make true; its pthread workers then failed in this bundle ("worker sent an error!", repeated, and the load never ended). The `.frag` path does not use web-ifc. A bench that wants the threaded numbers needs a pane that makes the threads start; this one does not.
+
+## Rebench 2026-10 (local)
+
+<!-- local (rebench) -->
+Since the October 2026 rebench the pane draws with `PostproductionRenderer` from `@thatopen/components-front` (3.4 used `SimpleRenderer`). The 3.4 pane is kept in `tools/thatopen.bak-rebench-3.4` (without `node_modules`), and its old `.frag` files in `models/cache-old-2026-10-25/`: every `.frag` is converted again with 3.6, so the file and the reader come from the same release (3.6 does open a 3.4 `.frag`: duplex, checked on 2026-10-25; the converter changed, so the old files are not what 3.6 makes).
+
+- `window.__TOC_POST` = `"off"` (default, this pane), `"composer"` (`tools/thatopen-fx-composer`) or `"deferred"` (`tools/thatopen-fx-deferred`). When on: `postproduction.enabled = true`, `mode` COMPOSER or DEFERRED, `style = PostproductionAspect.COLOR_PEN_SHADOWS`. Off, the renderer calls `three.render(scene, camera)` itself, as `SimpleRenderer` does.
+- Always: `turnOffOnManualMode = false`, `adaptiveResolution = false`; `cssSize` stays at its default (false).
+- `window.__TOC_SIMPLE = true` or `?tocSimple=1`: `OBC.SimpleRenderer` instead (cost reference for the geometry pass).
+- At `done` the pane sets `window.__benchExtra = { complete: true, toc }`, `toc` read on the library's objects: `version, renderer, rendererClass, post, style, mode, turnOffOnManualMode, adaptiveResolution, cssSize, rendererMode`; `window.__benchTocRead()` reads it again live. `node scripts/pane-eval.mjs --check-toc [model] [form]` checks the three panes.
+- The `ready` version ends with `components-front 3.6.0 post=<off|composer|deferred>` (or `renderer=simple`).
 
 ## What each state observes
 
@@ -47,6 +59,10 @@ On `.ifc` the time from `parsing` to `first-frame` covers web-ifc's geometry str
 ## Checking it
 
 `node scripts/view.mjs --tool thatopen --model duplex --form frag` opens the pane in headless Chrome on the machine's GPU (`--software` for SwiftShader), waits for `done` or `failed`, prints the times, and writes a screenshot to `results/view/scratch/` (git-ignored); `tools/README.md` describes the runner and `results/view/README.md` holds the latest numbers for every pane.
+
+## Camera path (local)
+
+`pane.mjs` installs `tools/camera-path.mjs` with an adapter in That Open's world: `box()` is the union of `model.box` over `fragments.list`, `up()` is `world.camera.three.up`, and `set()` calls `world.camera.controls.setLookAt(eye, target, false)` (camera-controls, no transition). Nothing else is driven by hand: the library's own `requestAnimationFrame` loop (`components.init()`) updates the controls, whose `update` event calls `fragments.core.update()` (unforced and throttled by the library, as for a user's drag), and `SimpleRenderer` renders every tick (its default mode is AUTO).
 
 ## What it cannot report
 

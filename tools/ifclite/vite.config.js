@@ -5,7 +5,7 @@ import { readFileSync } from "node:fs";
 import { defineConfig } from "vite";
 
 const installed = (name) => JSON.parse(readFileSync(`node_modules/${name}/package.json`, "utf8")).version;
-const versions = ["renderer", "geometry", "wasm"].map((n) => `${n} ${installed(`@ifc-lite/${n}`)}`).join(", ");
+const versions = ["renderer", "geometry", "parser", "wasm", "cache"].map((n) => `${n} ${installed(`@ifc-lite/${n}`)}`).join(", ");
 
 export default defineConfig({
   base: "./",

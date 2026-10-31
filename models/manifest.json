@@ -46,6 +46,1708 @@
       "bytes": 342657851,
       "schema": "IFC2X3",
       "facts": {}
+    },
+    {
+      "id": "sixty5-plumbing",
+      "title": "Sixty5 plumbing",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "O-S1-INS-Plumbing - Sanitair.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "15382b06d0a63464b95ba451ce7d5fa981bf6c236ebe3f4f62bb9d2b9abfd821",
+      "bytes": 222099255,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-kitchens",
+      "title": "Sixty5 kitchens",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "O-S1-BWK-BIM kitchens total - BIM keukens totaal.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "1905b992071729d1c780b18f6103e4d1d08307a4707d5f33a4413216f36776ac",
+      "bytes": 49670229,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-structure",
+      "title": "Sixty5 structure",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "O-S1-CON-Structural engineering - Constructie.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "79f294c643438ac7a494e4871857244c2de0eefa536eda5977af20640a301a22",
+      "bytes": 7422441,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-electrical",
+      "title": "Sixty5 electrical",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "O-S1-INS-E Installatie.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "adb8d5eda2c706a1fded2a00bd38d845e35f513e2f6ba048fc6228274dfb3986",
+      "bytes": 97058912,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-mechanical",
+      "title": "Sixty5 mechanical",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "O-S1-INS-W Installatie.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "c78f6ad085961500f0890bbffda9e171c1342c5865ca152f64098dd4da644cca",
+      "bytes": 114891068,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-space",
+      "title": "Sixty5 occupied space",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "O-S1-INS-Occupied space - Ruimtebeslag.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "b35761d6a9d9c27b3610b3d4ebe4e1eec5542acecd9c2abf5caf56accf3a06d7",
+      "bytes": 7898693,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-context-3dbag",
+      "title": "Sixty5 context: 3D BAG buildings",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "OMG_KS_3dBAG.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "e663862a6a6c9f1404646e02f987906b90260b269e7ce8c74fdeed97fc908602",
+      "bytes": 15667440,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-context-vegetation",
+      "title": "Sixty5 context: vegetation",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "OMG_KS_BGT-Vegetatieobject.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "6e85b138aa0863d5eb455f7d7d56df4aa35dc5aca9b1eb9c3f23ddd1db291519",
+      "bytes": 3146636,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-context-zoning",
+      "title": "Sixty5 context: zoning",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "OMG_KS_Ruimtelijkeplannen-Enkelbestemming.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "d46790811ee3d887763039fcfb0665f0574c483e44b4506106ef147c62980e78",
+      "bytes": 3386196,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-context-origin",
+      "title": "Sixty5 context: survey origin",
+      "partOf": "sixty5-full",
+      "source": {
+        "local": "OMG_KS_GEO-Nulpunt.ifc"
+      },
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "sha256": "46c083e5e780710285f2334b340781e70eb9901fb4764c1f819b5c19581987da",
+      "bytes": 15313,
+      "schema": "IFC2X3",
+      "facts": {}
+    },
+    {
+      "id": "sixty5-full",
+      "title": "Sixty5 full assembly (11 files)",
+      "parts": [
+        "sixty5",
+        "sixty5-kitchens",
+        "sixty5-structure",
+        "sixty5-electrical",
+        "sixty5-mechanical",
+        "sixty5-plumbing",
+        "sixty5-space",
+        "sixty5-context-3dbag",
+        "sixty5-context-vegetation",
+        "sixty5-context-zoning",
+        "sixty5-context-origin"
+      ],
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "facts": {},
+      "bytes": 863914034
+    },
+    {
+      "id": "sixty5-building",
+      "title": "Sixty5 building (7 files, no context)",
+      "parts": [
+        "sixty5",
+        "sixty5-kitchens",
+        "sixty5-structure",
+        "sixty5-electrical",
+        "sixty5-mechanical",
+        "sixty5-plumbing",
+        "sixty5-space"
+      ],
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "facts": {},
+      "bytes": 841698449
+    },
+    {
+      "id": "sixty5-x2",
+      "title": "Sixty5 building ×2 (matrix, 14 files)",
+      "parts": [
+        "sixty5",
+        "sixty5-kitchens",
+        "sixty5-structure",
+        "sixty5-electrical",
+        "sixty5-mechanical",
+        "sixty5-plumbing",
+        "sixty5-space",
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        }
+      ],
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "facts": {},
+      "bytes": 1683396898
+    },
+    {
+      "id": "sixty5-x4",
+      "title": "Sixty5 building ×4 (matrix, 28 files)",
+      "parts": [
+        "sixty5",
+        "sixty5-kitchens",
+        "sixty5-structure",
+        "sixty5-electrical",
+        "sixty5-mechanical",
+        "sixty5-plumbing",
+        "sixty5-space",
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        }
+      ],
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "facts": {},
+      "bytes": 3366793796
+    },
+    {
+      "id": "sixty5-x8",
+      "title": "Sixty5 building ×8 (matrix, 56 files)",
+      "parts": [
+        "sixty5",
+        "sixty5-kitchens",
+        "sixty5-structure",
+        "sixty5-electrical",
+        "sixty5-mechanical",
+        "sixty5-plumbing",
+        "sixty5-space",
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        }
+      ],
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "facts": {},
+      "bytes": 6733587592
+    },
+    {
+      "id": "sixty5-x16",
+      "title": "Sixty5 building ×16 (matrix, 112 files)",
+      "parts": [
+        "sixty5",
+        "sixty5-kitchens",
+        "sixty5-structure",
+        "sixty5-electrical",
+        "sixty5-mechanical",
+        "sixty5-plumbing",
+        "sixty5-space",
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            120,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            180,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            180,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            180,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            180,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            180,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            180,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            180,
+            0,
+            0
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            0,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            120,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            180,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            180,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            180,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            180,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            180,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            180,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            180,
+            0,
+            80
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            0,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            120,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            120,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            120,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            120,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            120,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            120,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            120,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            180,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            180,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            180,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            180,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            180,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            180,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            180,
+            0,
+            160
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            0,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            0,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            0,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            0,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            0,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            0,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            0,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            60,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            60,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            60,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            60,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            60,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            60,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            60,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            120,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            120,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            120,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            120,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            120,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            120,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            120,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5",
+          "offset": [
+            180,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-kitchens",
+          "offset": [
+            180,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-structure",
+          "offset": [
+            180,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-electrical",
+          "offset": [
+            180,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-mechanical",
+          "offset": [
+            180,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-plumbing",
+          "offset": [
+            180,
+            0,
+            240
+          ]
+        },
+        {
+          "id": "sixty5-space",
+          "offset": [
+            180,
+            0,
+            240
+          ]
+        }
+      ],
+      "licence": "CC-BY-4.0",
+      "attribution": "Sixty5, buildingSMART International Community-Sample-Test-Files (SDK - S1), CC BY 4.0",
+      "facts": {},
+      "bytes": 13467175184
     }
   ],
   "release": {

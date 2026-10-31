@@ -32,6 +32,12 @@ How the bundle depends on the checkout: `vite.config.mjs` aliases `@bim-open-vie
 - Memory and frame rate: the `view` suite does not measure them yet.
 - GLB orientation: the viewer treats glTF as y-up, and IfcConvert's default GLB keeps the IFC's z-up axes, so the Duplex GLB appears on its end. The bench runs each tool with its defaults, so the pane does not correct it.
 
+## Camera path (local)
+
+`src/pane.mjs` installs `tools/camera-path.mjs` with an adapter in the viewer's own world: `box()` is `viewer.bounds()` (what `view.fit` frames, null while empty), `up()` is the first view's `camera().camera.up` (z for the BOS files), and `set(eye, target)` runs the public `view.look` command with no `flightMs` (an instant move, as a saved-view restore) keeping the current projection and coordinates, then calls `requestRender()` on the view.
+The view's frame loop draws only when dirty, so every path frame is a real draw; the near and far planes are re-cut from the bounds by the view itself.
+`node scripts/view.mjs --tool bim-open-viewer --model duplex --form bos --path` plays it and writes the iso, front and inside screenshots.
+
 ## Checking it
 
 `node scripts/view.mjs --tool bim-open-viewer --model duplex` opens the pane in headless Chrome on the machine's GPU (`--software` for SwiftShader), waits for `done` or `failed`, prints the times, and writes a screenshot to `results/view/scratch/` (git-ignored); `tools/README.md` describes the runner and `results/view/README.md` holds the latest numbers for every pane.

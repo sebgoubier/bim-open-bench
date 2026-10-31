@@ -29,6 +29,9 @@ export default defineConfig({
     chunkSizeWarningLimit: 4000,
     rollupOptions: {
       input: "pane.mjs",
+      // local (rebench) : components 3.6 et components-front 3.6 lisent THREE.TSL / THREE.NodeMaterial (chemin WebGPU),
+      // local (rebench) : absents de three en WebGL : avertissements IMPORT_IS_UNDEFINED sans effet ici (pane WebGL), tus.
+      onwarn(warning, warn) { if (warning.code === "IMPORT_IS_UNDEFINED" && /@thatopen/.test(warning.id ?? warning.loc?.file ?? "")) return; warn(warning); }, // local (rebench)
       output: { entryFileNames: "pane.js", chunkFileNames: "[name]-[hash].js", assetFileNames: "assets/[name]-[hash][extname]" },
     },
   },

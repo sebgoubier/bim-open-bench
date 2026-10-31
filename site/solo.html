@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solo</title>
+<meta name="description" content="LOCAL ONLY. One viewer, full size: load, play the camera path, look at the fixed viewpoints.">
+<style>
+  :root {
+    --text: #171a1f; --dim: #5a606c; --surface: #ffffff; --bg: #f4f5f7; --border: #e3e6ea;
+    --ok: #16a34a; --bad: #dc2626;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root { --text: #e8eaed; --dim: #9aa0aa; --surface: #1c1f24; --bg: #121417; --border: #2c3036; }
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body { font: 14px/1.4 -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; color: var(--text); background: var(--bg); display: flex; flex-direction: column; }
+  header { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; padding: 8px 16px; background: var(--surface); border-bottom: 1px solid var(--border); }
+  header b { margin-right: 8px; }
+  select, button { font: inherit; padding: 4px 10px; border: 1px solid var(--border); border-radius: 4px; background: var(--surface); color: var(--text); }
+  button:disabled { opacity: .5; }
+  #status { padding: 4px 16px; font: 12px ui-monospace, Consolas, monospace; color: var(--dim); background: var(--surface); border-bottom: 1px solid var(--border); white-space: pre-wrap; min-height: 1.6em; }
+  #status .done { color: var(--ok); } #status .failed { color: var(--bad); }
+  iframe { flex: 1; border: 0; width: 100%; min-height: 0; background: #111; }
+  /* local (trajet 2) : ?bare=1 ne garde que le viewer, pour filmer */
+  body.bare header, body.bare #status { display: none; }
+  /* local (trajet 2) : repère t = 0 pour le montage vidéo (noir, blanc dès l'envoi du chargement), rogné ensuite */
+  #sync { position: fixed; left: 0; top: 0; width: 12px; height: 12px; background: #000; z-index: 9; display: none; }
+  body.bare #sync { display: block; }
+  /* local (trajet 2) : voile « chargement… » du lancement à la première image, pareil pour tous les viewers (un viewer
+     dont le fil principal est bloqué ne repeint plus sa fenêtre : sans voile, la capture montrait un reste d'image) */
+  #veil { position: fixed; inset: 0; background: #111; color: #9aa0aa; font: 600 22px "Segoe UI", system-ui, sans-serif; display: none; align-items: center; justify-content: center; z-index: 8; }
+  body.bare #veil.on { display: flex; }
+</style>
+</head>
+<body>
+<header>
+  <b>Solo</b>
+  <label>Viewer <select id="tool"></select></label>
+  <label>Modèle <select id="model"></select></label>
+  <label>Forme <select id="form"></select></label>
+  <button id="load">Charger</button>
+  <button id="path" disabled>Trajet 20 s</button>
+  <button data-pose="iso" disabled>Iso</button>
+  <button data-pose="front" disabled>Face</button>
+  <button data-pose="inside" disabled>Intérieur</button>
+  <button id="spin" disabled title="Caméra au centre de la maquette, rotation sur elle-même (angle = vitesse × temps)">Trajet 2 · rotation</button>
+  <label>à <select id="spinSpeed"><option value="45">45</option><option value="90" selected>90</option><option value="180">180</option></select> °/s</label>
+</header>
+<div id="status"></div>
+<iframe id="pane" title="viewer"></iframe>
+<div id="sync"></div>
+<div id="veil">chargement…</div>
+<script type="module" src="solo.mjs"></script>
+</body>
+</html>

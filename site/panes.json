@@ -14,7 +14,8 @@
       "tool": "ifclite",
       "title": "IFClite",
       "forms": [
-        "ifc"
+        "ifc",
+        "ifc-cache"
       ],
       "by": "LTplus AG"
     },
@@ -51,6 +52,42 @@
         "glb"
       ],
       "by": "e-verse"
+    },
+    {
+      "tool": "thatopen-fx-composer",
+      "title": "That Open Engine rebench effets (COMPOSER)",
+      "forms": [
+        "frag",
+        "ifc"
+      ],
+      "by": "That Open Company (local, rebench)"
+    },
+    {
+      "tool": "thatopen-fx-deferred",
+      "title": "That Open Engine rebench effets (DEFERRED)",
+      "forms": [
+        "frag",
+        "ifc"
+      ],
+      "by": "That Open Company (local, rebench)"
+    },
+    {
+      "tool": "thatopen-webgpu",
+      "title": "That Open Engine rebench WebGPU",
+      "forms": [
+        "frag",
+        "ifc"
+      ],
+      "by": "That Open Company (local, rebench)"
+    },
+    {
+      "tool": "thatopen-webgpu-fx",
+      "title": "That Open Engine rebench effets (WebGPU, TSL)",
+      "forms": [
+        "frag",
+        "ifc"
+      ],
+      "by": "That Open Company (local, rebench)"
     }
   ]
 }

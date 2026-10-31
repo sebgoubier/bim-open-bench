@@ -1,6 +1,11 @@
 // Shared by every pane page. The contract is in tools/README.md.
 //
-//   createPane({ tool, version, ext, load })
+//   createPane({ tool, version, ext, load, multi })
+//
+// local (#796, never pushed): an assembly (a manifest model with "parts") comes as `urls`, one
+// file per part, in the load message; `url` is then the first part. A pane that can load several
+// files at once passes `multi: true` and reads `urls`; any other pane fails the load with a
+// message instead of quietly showing one part.
 //
 // `ext` is the file form this pane reads ("glb", "ifc", "bos", ...). `load` is
 // called with { model, url, report } once per load, from a message of the
@@ -24,7 +29,7 @@ export function formatState(msg) {
   return `${msg.state}  ${Math.round(msg.t)} ms${bytes}${text}`;
 }
 
-export function createPane({ tool, version, ext, load, win = window }) {
+export function createPane({ tool, version, ext, load, multi = false, win = window }) {
   const doc = win.document;
   const embedded = win.parent && win.parent !== win;
   let line = doc.getElementById("status");
@@ -54,18 +59,21 @@ export function createPane({ tool, version, ext, load, win = window }) {
     post(msg);
     return msg;
   };
-  const start = (model, url) => {
+  // local (#796) : `offsets` = décalage [x, y, z] (m, monde Y-up) de chaque fichier, matrices d'assemblage ; null = aucun.
+  // local (rebench, 26/10) : `form` = la forme demandée par la page parente (ifclite : « ifc-cache » lit le même .ifc).
+  const start = (model, url, urls, offsets, form) => {
     origin = win.performance.now();
     current = { model, url };
     history = [];
-    load({ model, url, report });
+    if (urls && urls.length > 1 && !multi) { report("failed", { message: `${tool} loads one file at a time; ${model} has ${urls.length}` }); return; }
+    load({ model, url, urls: urls ?? [url], offsets: offsets ?? null, report, form });
   };
 
   win.addEventListener("message", (e) => {
     const m = e.data;
-    if (m && m.type === "load" && typeof m.url === "string") start(m.model ?? "", m.url);
+    if (m && m.type === "load" && typeof m.url === "string") start(m.model ?? "", m.url, Array.isArray(m.urls) ? m.urls : undefined, Array.isArray(m.offsets) ? m.offsets : undefined, typeof m.form === "string" ? m.form : undefined);
   });
-  post({ type: "ready", tool, version });
+  post({ type: "ready", tool, version, multi });
   line.textContent = `${tool} ${version}: ready`;
 
   const target = resolveTarget(win.location.search, ext);

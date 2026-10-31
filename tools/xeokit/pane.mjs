@@ -2,6 +2,7 @@
 // XKTLoaderPlugin, both with the SDK's defaults. See README.md here for what is observed.
 import { Viewer, WebIFCLoaderPlugin, XKTLoaderPlugin } from "@xeokit/xeokit-sdk/dist/xeokit-sdk.es.js";
 import { createPane } from "../pane.mjs";
+import { installCameraPath } from "../camera-path.mjs";
 
 // web-ifc comes from dist/web-ifc-api-iife.js, a classic <script> in pane.html that sets globalThis.WebIFC.
 // The SDK's docs for WebIFCLoaderPlugin name web-ifc 0.0.51, installed here as "web-ifc-0.0.51"; 0.0.70 (the
@@ -66,7 +67,9 @@ function reportingSource(source, method) {
   return wrapped;
 }
 
-async function load({ url, report }) {
+async function load({ url, urls = [url], offsets, report }) {
+  // local (#796): an assembly (several urls) goes to loadParts; one file loads as before.
+  if (urls.length > 1) return loadParts({ urls, offsets, report });
   const id = `model${++loadCount}`;
   const abs = absolute(url);
   currentReport = report;
@@ -100,6 +103,60 @@ async function load({ url, report }) {
   }
 }
 
+// local (#796): every file of an assembly in one scene, one SceneModel each ("model<n>-<k>"), as
+// xeokit federates models. .xkt files load in parallel (each XKTLoaderPlugin.load fetches with its
+// own request and parses when its file arrives); .ifc files in series (one IfcAPI, web-ifc's work
+// on the main thread). `parsing` is reported once every file has arrived, with their total size:
+// a file that arrived earlier may already be parsed by then. first-frame: the first render once a
+// model is loaded and every file has arrived (framed with jumpTo, as a single file is); done: all
+// loaded, jumpTo on the scene (its aabb is the union of the models) and one more render.
+async function loadParts({ urls, offsets, report }) {
+  const batch = ++loadCount;
+  currentReport = report;
+  failedOnce = false;
+  report("fetching");
+  try {
+    const v = ensureViewer();
+    if (loadCount > 1) for (const m of Object.values(v.scene.models)) m.destroy();
+    const isXkt = (u) => new URL(absolute(u)).pathname.toLowerCase().endsWith(".xkt");
+    if (urls.some(isXkt) && !xktLoader) {
+      xktLoader = new XKTLoaderPlugin(v);
+      xktLoader.dataSource = reportingSource(xktLoader.dataSource, "getXKT");
+    }
+    if (!urls.every(isXkt)) await ensureIfcLoader();
+    // first-frame waits for `parsing`, so that the states keep their order when a small file is
+    // drawn before a large one has arrived.
+    let arrived = 0, total = 0, first = false, firstModel = false;
+    const firstFrame = () => {
+      if (first || !firstModel || arrived < urls.length) return;
+      first = true;
+      v.cameraFlight.jumpTo(v.scene);
+      v.scene.once("rendered", () => report("first-frame", { bytes: total }));
+    };
+    onFetched = (bytes) => { total += bytes; if (++arrived === urls.length) { report("parsing", { bytes: total }); firstFrame(); } };
+    const loadOne = (u, k) => new Promise((resolve) => {
+      const timer = setTimeout(() => failWith("timed out"), TIMEOUT_MS);
+      // local (trajet 2) : matrice d'assemblage (monde Y-up, comme That Open et IFClite) ; sans elle les copies se superposaient.
+      const off = offsets?.[k], position = off && off.some((x) => x !== 0) ? off : undefined;
+      const model = (isXkt(u) ? xktLoader : ifcLoader).load({ id: `model${batch}-${k}`, src: absolute(u), ...(position ? { position } : {}) });
+      model.on("error", (message) => { clearTimeout(timer); failWith(message); });
+      model.on("loaded", () => {
+        clearTimeout(timer);
+        firstModel = true;
+        firstFrame();
+        resolve(model);
+      });
+    });
+    if (urls.every(isXkt)) await Promise.all(urls.map(loadOne));
+    else for (let k = 0; k < urls.length; k++) await loadOne(urls[k], k);
+    if (failedOnce || batch !== loadCount) return;
+    v.cameraFlight.jumpTo(v.scene);
+    v.scene.once("rendered", () => report("done", { bytes: total, models: urls.length }));
+  } catch (error) {
+    failWith(error?.message ?? error);
+  }
+}
+
 // An error thrown while the plugin builds the model (after parsing) never reaches model.on("error").
 let currentReport;
 let failedOnce = false;
@@ -107,9 +164,41 @@ const failWith = (m) => { if (!failedOnce) { failedOnce = true; currentReport?.(
 addEventListener("error", (e) => failWith(e.message));
 addEventListener("unhandledrejection", (e) => failWith(e.reason?.message ?? e.reason));
 
+// The camera path's adapter (tools/camera-path.mjs): the scene's aabb (what jumpTo frames), the
+// camera's world up (camera.up is its own up, which tilts with the view), and eye/look/up set
+// directly, without CameraFlightAnimation. A camera change marks the scene dirty and xeokit draws it
+// on its own requestAnimationFrame loop; the count of drawn frames goes with the path result, to
+// check that every rAF interval of the path holds a draw.
+let rendered = 0;
+let counting = false;
+installCameraPath({
+  camera: {
+    box() {
+      if (!viewer || Object.keys(viewer.scene.models).length === 0) return null;
+      const a = viewer.scene.aabb;
+      return a[0] <= a[3] ? { min: [a[0], a[1], a[2]], max: [a[3], a[4], a[5]] } : null;
+    },
+    up: () => [...viewer.camera.worldUp],
+    set(eye, target) {
+      if (!counting) { counting = true; viewer.scene.on("rendered", (e) => { if (e.pass === 0) rendered++; }); }
+      const c = viewer.camera;
+      c.up = [...c.worldUp];
+      c.eye = eye;
+      c.look = target;
+    },
+  },
+});
+const playPath = window.__benchCamera.playPath;
+window.__benchCamera.playPath = async () => {
+  const before = rendered;
+  const r = await playPath();
+  return { ...r, rendered: rendered - before };
+};
+
 createPane({
   tool: "xeokit",
   version: `${__XEOKIT_SDK_VERSION__}, web-ifc ${__WEB_IFC_VERSION__}`,
   ext: "ifc",
   load,
+  multi: true, // local (#796): every part of an assembly in one scene (loadParts)
 });
